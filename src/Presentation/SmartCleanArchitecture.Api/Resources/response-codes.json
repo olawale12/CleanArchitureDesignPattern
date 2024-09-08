@@ -1,0 +1,11 @@
+{
+  "E004": "Wrong username or password.",
+  "E003": "Invalid session.",
+  "E002": "Password does not match the required format.",
+  "E001": "This user is already registered with us.",
+  "E005": "User details can not be found.",
+  "S00": "Action performed successfully",
+  "D01": "The data you want to create already exist on the system"
+  "E0089":  "Invalid Token or Token as expire"
+
+}

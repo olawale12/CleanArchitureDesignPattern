@@ -1,0 +1,31 @@
+{
+  "$schema": "http://json.schemastore.org/template",
+  "author": "Olawale Omotosho",
+  "classifications": ["Web", "Solution", "Design Pattern", "Web API", "API" ],
+  "tags": {
+	"type": "project",
+    "language": "C#"
+  },
+  "identity": "smart.SmartCleanArchitecture.Cqrs.Medtr.Template",
+  "name": "Smart Clean Architecture Template",
+  "shortName": "SmartCleanArchitecture",
+  "sourceName": "SmartCleanArchitecture",
+  "defaultName":"SmartCleanArchitecture",
+  "symbols": {
+    "skipRestore": {
+      "type": "parameter",
+      "datatype": "bool",
+      "description": "If specified, skips the automatic restore of the project on create.",
+      "defaultValue": "false"
+    }
+  },
+  "sources": [
+    {
+      "modifiers": [
+        {
+          "exclude": [ "src/.vs/**", ".template_config/**" ]
+        }
+      ]
+    }
+  ]
+}

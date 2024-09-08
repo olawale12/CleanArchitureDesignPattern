@@ -1,0 +1,36 @@
+<Project Sdk="Microsoft.NET.Sdk">
+  <PropertyGroup>
+    <TargetFramework>net8.0</TargetFramework>
+    <IncludeContentInPack>true</IncludeContentInPack>
+    <IncludeBuildOutput>false</IncludeBuildOutput>
+    <ContentTargetFolders>content</ContentTargetFolders>
+    <EnableDefaultItems>false</EnableDefaultItems>
+    <NoDefaultExcludes>true</NoDefaultExcludes>
+    <GeneratePackageOnBuild>True</GeneratePackageOnBuild>
+    <PackageOutputPath>.</PackageOutputPath>  
+  </PropertyGroup>
+
+  <ItemGroup>
+    <Content Include="src\**\*" Exclude="**\bin\**\*;**\obj\**\*" />
+    <Compile Remove="**\*" />
+    <None Include="README.md" Pack="true" PackagePath="\"/>
+  </ItemGroup>
+
+  <PropertyGroup>
+    <PackageType>Template</PackageType>
+    <Version>8.0.1</Version>
+    <PackageId>SmartCleanArchitecture</PackageId>
+    <Title>ASP.NET Core Template</Title>
+    <Company>Eclipsoft.Tech</Company>
+    <Authors>Olawale.Omotosho</Authors>
+    <Copyright>Eclipsoft.Tech © 2024-2030</Copyright>
+    <Description>A ready-to-use template for ASP.NET 8 with clean archectural design pattern with approprate folder structure.</Description>
+    <PackageTags>c#;asp.net;core;template;web;webApi</PackageTags>
+    <PackageCopyright>Olawale.Omotosho © 2024-2030</PackageCopyright>
+    <PackageProjectUrl>https://github.com/olawale12/CleanArchitureDesignPattern</PackageProjectUrl>
+    <PackageLicenseExpression>MIT</PackageLicenseExpression>
+    <RepositoryType>git</RepositoryType>
+    <RepositoryUrl>https://github.com/olawale12/CleanArchitureDesignPattern</RepositoryUrl>
+    <PackageReadmeFile>README.md</PackageReadmeFile>
+  </PropertyGroup>
+</Project>
