@@ -6,6 +6,7 @@ i.   Generic Repository Design Pattern: Simplifies data access and repository ma
 ii.  CQRS Design Pattern: Enables scalable and maintainable command and query handling.
 iii. Fluent Validation: Provides a flexible and intuitive validation framework.
 iv.  Global Error Handling: Ensures robust error management and reporting.
+
 This template is perfect for developers seeking a solid foundation for their ASP.NET 8 web api projects.
 
 
