@@ -25,12 +25,19 @@ dotnet new -i SmartCleanArchitecture
 dotnet new SmartCleanArchitecture -n YourProjectName
 ```
 
+
 ## IDE
 ```powershell
 Visual Studio
 ```
 ```powershell
 Visual Studio Code
+```
+
+## Dotnet run application
+
+```powershell
+dotnet run YourProjectName.Api
 ```
 
 ## Pack this Template
