@@ -15,19 +15,13 @@ namespace SmartCleanArchitecture.Application.Common.Cache
 
         public CacheOptionsProvider()
         {
-            _cacheOptions.Add(CacheEnum.PAYMENTCATEGORY, new CacheOptions()
+            _cacheOptions.Add(CacheEnum.User, new CacheOptions()
             {
                 Identifier = "PaymentService",
                 AbsoluteExpirySeconds = secondsInAday,
                 SlidingExpirySeconds = secondsInAday
             });
-            
-            _cacheOptions.Add(CacheEnum.BANKPAYMENT, new CacheOptions()
-            {
-                Identifier = "BankPayment",
-                AbsoluteExpirySeconds = secondsInHalf,
-                SlidingExpirySeconds = secondsInHalf
-            });
+           
 
            
         }
