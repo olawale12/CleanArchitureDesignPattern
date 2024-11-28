@@ -1,15 +1,11 @@
 using SmartCleanArchitecture.Application;
 using SmartCleanArchitecture.Infrastructure;
-using SmartCleanArchitecture.Infrastructure.IRepository;
-using SmartCleanArchitecture.Infrastructure.Repository;
 
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 
 // add layer dependency
-//builder.Services.AddSingleton<IGenericRepository<T>, GenericRepository<T>>();
-builder.Services.AddTransient<IUnitOfWork, UnitOfWork>();
 object value = builder.Services.ApplicationServices(builder.Configuration);
 builder.Services.InfrastructureServices(builder.Configuration);
 
