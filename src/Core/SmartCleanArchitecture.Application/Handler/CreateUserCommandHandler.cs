@@ -12,6 +12,11 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Dapper;
+using Oracle.ManagedDataAccess.Client;
+using Microsoft.Extensions.Configuration;
+using System.Data.Common;
+using System.Configuration;
 
 namespace SmartCleanArchitecture.Application.Handler
 {
@@ -20,17 +25,21 @@ namespace SmartCleanArchitecture.Application.Handler
         private readonly IRepositoryWrapper _repositoryWrapper;
         private readonly IMessageProvider _messageProvider;
         private readonly IMapper _mapper;
+        private readonly IConfiguration _configuration;
+        private readonly OracleConnection _connection;
 
-        public CreateUserCommandHandler(IRepositoryWrapper repositoryWrapper, IMessageProvider messageProvider, IMapper mapper)
+        public CreateUserCommandHandler(IRepositoryWrapper repositoryWrapper, IMessageProvider messageProvider, IMapper mapper, IConfiguration configuration)
         {
             _repositoryWrapper = repositoryWrapper;
             _messageProvider = messageProvider;
             _mapper = mapper;
+            _configuration = configuration;
+            _connection = new OracleConnection(configuration.GetConnectionString("DefaultConnection"));
         }
         public async Task<PayloadResponse<UsersDto>> Handle(CreateUserCommand request, CancellationToken cancellationToken)
         {
             var hashMethod = HashingAndSalting.GetHashingAndSalting;
-            var userMethod = new GetUserByCondition(_repositoryWrapper);
+            var userMethod = new GetUserByCondition(_configuration);
             var newUser = new UsersDto();
 
             // using ClipsHashAndSalt to generate password hash and salt
@@ -56,9 +65,35 @@ namespace SmartCleanArchitecture.Application.Handler
                 PasswordSalt = hashResult.Salt,
                 CreatedAt = DateTime.UtcNow,
             };
+            //_connection.q
+            //await _repositoryWrapper.UserRepository.CreateAsync(user);
+            //await _repositoryWrapper.UserRepository.SaveAsync();
 
-            await _repositoryWrapper.UserRepository.CreateAsync(user);
-            await _repositoryWrapper.UserRepository.SaveAsync();
+            using (OracleConnection connection = new OracleConnection(_configuration.GetConnectionString("DefaultConnection")))
+            {
+                await connection.OpenAsync();
+
+                string insertSql = "insert into Users (DOB,EMAIL, FIRSTNAME, LASTNAME, PHONENO, USERNAME, PASSWORDHASH, PASSWORDSALT, CREATEDAT, LASTLOGIN, ISDELETED) values (:DOB, :EMAIL, :FIRSTNAME, :LASTNAME, :PHONENO, :USERNAME, :PASSWORDHASH, :PASSWORDSALT, :CREATEDAT, :LASTLOGIN, :ISDELETED)";
+
+            using (OracleCommand command = new OracleCommand(insertSql, connection))
+            {
+                command.Parameters.Add(new OracleParameter("DOB", request.Dob));
+                command.Parameters.Add(new OracleParameter("EMAIL", request.Email));
+                command.Parameters.Add(new OracleParameter("FIRSTNAME", request.FirstName));
+                command.Parameters.Add(new OracleParameter("LASTNAME", request.LastName));
+                command.Parameters.Add(new OracleParameter("PHONENO", request.PhoneNo));
+                command.Parameters.Add(new OracleParameter("USERNAME", request.UserName));
+                command.Parameters.Add(new OracleParameter("PASSWORDHASH", hashResult.Hash));
+                command.Parameters.Add(new OracleParameter("PASSWORDSALT", hashResult.Salt));
+                command.Parameters.Add(new OracleParameter("CREATEDAT", DateTime.UtcNow));
+                command.Parameters.Add(new OracleParameter("LASTLOGIN", DateTime.UtcNow));
+                command.Parameters.Add(new OracleParameter("ISDELETED", 1));
+
+                int rowsAffected = await command.ExecuteNonQueryAsync();
+
+                Console.WriteLine($"Rows inserted: {rowsAffected}");
+            }
+        }
 
             newUser = _mapper.Map<UsersDto>(user);
 
