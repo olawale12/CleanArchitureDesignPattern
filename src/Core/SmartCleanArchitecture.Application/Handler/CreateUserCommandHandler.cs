@@ -7,11 +7,14 @@ using SmartCleanArchitecture.Application.Common.Responses;
 using SmartCleanArchitecture.Domain.Entities.Dals;
 using SmartCleanArchitecture.Domain.Entities.Dtos;
 using SmartCleanArchitecture.Domain.Interfaces.IWrapper;
+using KafkaLibrary;
+using KafkaLibrary.KafkaProducer;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+
 
 namespace SmartCleanArchitecture.Application.Handler
 {
@@ -20,8 +23,9 @@ namespace SmartCleanArchitecture.Application.Handler
         private readonly IRepositoryWrapper _repositoryWrapper;
         private readonly IMessageProvider _messageProvider;
         private readonly IMapper _mapper;
+        private readonly IMessageProducers _messageProducers;
 
-        public CreateUserCommandHandler(IRepositoryWrapper repositoryWrapper, IMessageProvider messageProvider, IMapper mapper)
+        public CreateUserCommandHandler(IRepositoryWrapper repositoryWrapper, IMessageProvider messageProvider, IMapper mapper, IMessageProducers messageProducers)
         {
             _repositoryWrapper = repositoryWrapper;
             _messageProvider = messageProvider;
@@ -61,7 +65,7 @@ namespace SmartCleanArchitecture.Application.Handler
             await _repositoryWrapper.UserRepository.SaveAsync();
 
             newUser = _mapper.Map<UsersDto>(user);
-
+            await _messageProducers.ProduceAsync<UsersDto>("User", newUser).ConfigureAwait(false);
             return ResponseStatus<UsersDto>.Create<PayloadResponse<UsersDto>>(ResponseCodes.SUCCESSFUL, _messageProvider.GetMessage(ResponseCodes.SUCCESSFUL), newUser);
         }
     }

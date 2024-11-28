@@ -9,6 +9,6 @@ namespace SmartCleanArchitecture.Application.Common.Interfaces
 {
     public interface IMessageFullProvider
     {
-        MessageFull GetPack();
+        MessageFull GetPack(string languageCode = "en");
     }
 }

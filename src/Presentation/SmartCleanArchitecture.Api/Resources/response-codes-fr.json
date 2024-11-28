@@ -1,0 +1,10 @@
+{
+  "E004": "Nom d'utilisateur ou mot de passe incorrect.",
+  "E003": "Session invalide.",
+  "E002": "Le mot de passe ne correspond pas au format requis.",
+  "E001": "Cet utilisateur est déjà enregistré chez nous.",
+  "E005": "Les détails de l'utilisateur ne peuvent pas être trouvés.",
+  "S00": "Action effectuée avec succès",
+  "D01": "Les données que vous souhaitez créer existent déjà dans le système",
+  "E0089": "Jeton invalide ou jeton expiré"
+}

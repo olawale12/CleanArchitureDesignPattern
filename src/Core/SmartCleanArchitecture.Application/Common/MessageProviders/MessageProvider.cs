@@ -16,9 +16,9 @@ namespace SmartCleanArchitecture.Application.Common.MessageProviders
         {
             _provider = provider;
         }
-        public string GetMessage(string code)
+        public string GetMessage(string code, string languageCode = "en")
         {
-            var bundle = _provider.GetPack();
+            var bundle = _provider.GetPack(languageCode);
             if (bundle == null)
             {
                 throw new Exception("Invalid language configuration");
