@@ -11,7 +11,9 @@ using System.Text;
 using System.Threading.Tasks;
 using Cachelibrary;
 using StackExchange.Redis;
+using KafkaLibrary;
 using SmartCleanArchitecture.Application.Common.Cache;
+using SmartCleanArchitecture.Application.kafkaConsumer;
 
 namespace SmartCleanArchitecture.Application
 {
@@ -28,6 +30,9 @@ namespace SmartCleanArchitecture.Application
             services.AddScoped<IMessageProvider, MessageProvider>();
             services.AddSingleton<IMessageFullProvider, MessageFullProvider>();
             services.Configure<MessageFullSettings>(opt => configuration.GetSection("MessageFullSettings").Bind(opt));
+
+
+            #region RedisSetup
 
             var cacheConfig = configuration.GetSection("Redis").Get<ConfigurationOptions>();
 
@@ -59,7 +64,14 @@ namespace SmartCleanArchitecture.Application
                 opt.AbortOnConnectFail = cacheConfig!.AbortOnConnectFail;
             }, useRedis: useRedisFlag);
 
+            #endregion
 
+            #region KafkaSetup
+
+            var kafkaConfig = configuration.GetSection("Kafka");
+            services.AddKafkaServices<Consumer>(kafkaConfig);
+
+            #endregion
             return services;
         }
     }

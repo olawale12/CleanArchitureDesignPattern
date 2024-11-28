@@ -55,3 +55,14 @@ dotnet new -i .\YourNugetPackageName.nupkg
 ## License
 
 This project is licensed with the [MIT license](LICENSE).
+
+##  Kafka Implementation
+in appsettings.json put your configuration
+Example
+ "Kafka": {
+    "bootstrapservers": "localhost:9092",
+    "UseKafka": true,
+    "FlushProducerInSeconds": 2,
+    "ConsumedInSeconds": 2
+  }
+Note that you can use  Confluent.Kafka configuration 

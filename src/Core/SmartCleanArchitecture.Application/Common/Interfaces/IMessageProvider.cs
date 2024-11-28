@@ -9,7 +9,7 @@ namespace SmartCleanArchitecture.Application.Common.Interfaces
 {
     public interface IMessageProvider
     {
-        string GetMessage(string code);
+        string GetMessage(string code, string languageCode = "en");
         string GetOtpMessage(OtpPurpose otpPurpose);
     }
 }
