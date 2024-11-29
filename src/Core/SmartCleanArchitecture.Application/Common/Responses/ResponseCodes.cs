@@ -16,6 +16,10 @@ namespace SmartCleanArchitecture.Application.Common.Responses
         public const string SUCCESSFUL = "S00";
         public const string DATA_EXIST = "D01";
         public const string INVALID_TOKEN = "E0089";
+        public const string INVALID_INPUT_PARAMETER = "E0032";
+        public const string SYSTEM_ERROR = "E1000";
+
+
 
     }
 }

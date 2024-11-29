@@ -8,7 +8,7 @@ using KafkaLibrary.Consumer;
 using KafkaLibrary.Interface;
 using KafkaLibrary.KafkaProducer;
 
-namespace nuget.src.Core.SmartCleanArchitecture.Application.kafkaConsumer
+namespace SmartCleanArchitecture.Application.kafkaConsumer
 {
     public class Consumer : ConsumerBase
     {

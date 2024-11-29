@@ -14,6 +14,9 @@ using StackExchange.Redis;
 using KafkaLibrary;
 using SmartCleanArchitecture.Application.Common.Cache;
 using SmartCleanArchitecture.Application.kafkaConsumer;
+using SmartCleanArchitecture.Application.Models;
+using SmartCleanArchitecture.Application.Interfaces;
+using SmartCleanArchitecture.Application.Handler;
 
 namespace SmartCleanArchitecture.Application
 {
@@ -27,9 +30,12 @@ namespace SmartCleanArchitecture.Application
                 ctg.RegisterServicesFromAssembly(Assembly.GetExecutingAssembly());
             });
 
+            services.AddScoped<IGetUserByCondition, GetUserByCondition>();
             services.AddScoped<IMessageProvider, MessageProvider>();
             services.AddSingleton<IMessageFullProvider, MessageFullProvider>();
             services.Configure<MessageFullSettings>(opt => configuration.GetSection("MessageFullSettings").Bind(opt));
+            services.Configure<SystemSetting>(opt => configuration.GetSection("SystemSettings").Bind(opt));
+
 
 
             #region RedisSetup

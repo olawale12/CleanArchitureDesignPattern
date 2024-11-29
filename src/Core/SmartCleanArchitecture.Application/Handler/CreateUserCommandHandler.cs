@@ -14,6 +14,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using SmartCleanArchitecture.Application.Interfaces;
 
 
 namespace SmartCleanArchitecture.Application.Handler
@@ -24,24 +25,26 @@ namespace SmartCleanArchitecture.Application.Handler
         private readonly IMessageProvider _messageProvider;
         private readonly IMapper _mapper;
         private readonly IMessageProducers _messageProducers;
+        private IGetUserByCondition _getUserByCondition;
 
-        public CreateUserCommandHandler(IRepositoryWrapper repositoryWrapper, IMessageProvider messageProvider, IMapper mapper, IMessageProducers messageProducers)
+        public CreateUserCommandHandler(IRepositoryWrapper repositoryWrapper, IMessageProvider messageProvider, IMapper mapper, IMessageProducers messageProducers, IGetUserByCondition getUserByCondition)
         {
             _repositoryWrapper = repositoryWrapper;
             _messageProvider = messageProvider;
             _mapper = mapper;
+            _getUserByCondition = getUserByCondition;
+            _messageProducers = messageProducers;
         }
         public async Task<PayloadResponse<UsersDto>> Handle(CreateUserCommand request, CancellationToken cancellationToken)
         {
             var hashMethod = HashingAndSalting.GetHashingAndSalting;
-            var userMethod = new GetUserByCondition(_repositoryWrapper);
             var newUser = new UsersDto();
 
             // using ClipsHashAndSalt to generate password hash and salt
             var hashResult = hashMethod.GenerateSaltedHash(request.Password);
 
-            var existingUserEmail = await userMethod.GetUserByCondAsync(request.Email);
-            var existingUserPhoneNo = await userMethod.GetUserByCondAsync(request.PhoneNo);
+            var existingUserEmail = await _getUserByCondition.GetUserByCondAsync(request.Email);
+            var existingUserPhoneNo = await _getUserByCondition.GetUserByCondAsync(request.PhoneNo);
 
             if (existingUserEmail != null || existingUserPhoneNo != null)
             {

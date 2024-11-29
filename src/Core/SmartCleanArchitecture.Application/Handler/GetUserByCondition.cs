@@ -1,5 +1,6 @@
 ﻿using Cachelibrary.Interface;
 using SmartCleanArchitecture.Application.Common.Cache;
+using SmartCleanArchitecture.Application.Interfaces;
 using SmartCleanArchitecture.Domain.Entities.Dals;
 using SmartCleanArchitecture.Domain.Entities.Dtos;
 using SmartCleanArchitecture.Domain.Interfaces.IWrapper;
@@ -11,7 +12,7 @@ using System.Threading.Tasks;
 
 namespace SmartCleanArchitecture.Application.Handler
 {
-    public class GetUserByCondition
+    public class GetUserByCondition: IGetUserByCondition
     {
 
         private readonly IRepositoryWrapper _repositoryWrapper;
