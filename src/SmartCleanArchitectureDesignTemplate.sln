@@ -23,6 +23,8 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SmartCleanArchitecture.Api"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CleanArchitechtureDesignPattern.Test", "CleanArchitechtureDesignPattern.Test\CleanArchitechtureDesignPattern.Test.csproj", "{7BA277E5-335C-4CE0-9E6A-2002204AEEF8}"
 EndProject
+Project("{00D1A9C2-B5F0-4AF3-8072-F6C62B433612}") = "SmartCleanArchitecture.Database.Infrastructure", "SmartCleanArchitecture.Database.Infrastructure\SmartCleanArchitecture.Database.Infrastructure.sqlproj", "{2B6C4811-7527-45BF-9AA0-F510A345AC96}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -105,6 +107,24 @@ Global
 		{7BA277E5-335C-4CE0-9E6A-2002204AEEF8}.Release|arm64.Build.0 = Release|Any CPU
 		{7BA277E5-335C-4CE0-9E6A-2002204AEEF8}.Release|x86.ActiveCfg = Release|Any CPU
 		{7BA277E5-335C-4CE0-9E6A-2002204AEEF8}.Release|x86.Build.0 = Release|Any CPU
+		{2B6C4811-7527-45BF-9AA0-F510A345AC96}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{2B6C4811-7527-45BF-9AA0-F510A345AC96}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{2B6C4811-7527-45BF-9AA0-F510A345AC96}.Debug|Any CPU.Deploy.0 = Debug|Any CPU
+		{2B6C4811-7527-45BF-9AA0-F510A345AC96}.Debug|arm64.ActiveCfg = Debug|Any CPU
+		{2B6C4811-7527-45BF-9AA0-F510A345AC96}.Debug|arm64.Build.0 = Debug|Any CPU
+		{2B6C4811-7527-45BF-9AA0-F510A345AC96}.Debug|arm64.Deploy.0 = Debug|Any CPU
+		{2B6C4811-7527-45BF-9AA0-F510A345AC96}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{2B6C4811-7527-45BF-9AA0-F510A345AC96}.Debug|x86.Build.0 = Debug|Any CPU
+		{2B6C4811-7527-45BF-9AA0-F510A345AC96}.Debug|x86.Deploy.0 = Debug|Any CPU
+		{2B6C4811-7527-45BF-9AA0-F510A345AC96}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{2B6C4811-7527-45BF-9AA0-F510A345AC96}.Release|Any CPU.Build.0 = Release|Any CPU
+		{2B6C4811-7527-45BF-9AA0-F510A345AC96}.Release|Any CPU.Deploy.0 = Release|Any CPU
+		{2B6C4811-7527-45BF-9AA0-F510A345AC96}.Release|arm64.ActiveCfg = Release|Any CPU
+		{2B6C4811-7527-45BF-9AA0-F510A345AC96}.Release|arm64.Build.0 = Release|Any CPU
+		{2B6C4811-7527-45BF-9AA0-F510A345AC96}.Release|arm64.Deploy.0 = Release|Any CPU
+		{2B6C4811-7527-45BF-9AA0-F510A345AC96}.Release|x86.ActiveCfg = Release|Any CPU
+		{2B6C4811-7527-45BF-9AA0-F510A345AC96}.Release|x86.Build.0 = Release|Any CPU
+		{2B6C4811-7527-45BF-9AA0-F510A345AC96}.Release|x86.Deploy.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -116,6 +136,7 @@ Global
 		{0D8290E6-FA7F-4FC2-ACCD-FF5D65156349} = {1A1D9A38-7D70-4CB7-A510-75DF66370C56}
 		{D821F3B1-E57A-4F42-B302-0F8EC6BAC101} = {19BC6C44-2DD5-47E9-BEA1-0BA189892028}
 		{7BA277E5-335C-4CE0-9E6A-2002204AEEF8} = {F10AE7E6-1E5C-4715-8060-1B3A51B7E3C4}
+		{2B6C4811-7527-45BF-9AA0-F510A345AC96} = {1A1D9A38-7D70-4CB7-A510-75DF66370C56}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {C7B1619F-DCDE-4582-B977-A2EDB1C1594F}

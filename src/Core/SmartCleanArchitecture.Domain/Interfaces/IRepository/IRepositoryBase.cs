@@ -17,5 +17,7 @@ namespace SmartCleanArchitecture.Domain.Interfaces.IRepository
         void Update(TModel entity);
         void Delete(TModel entity);
         Task SaveAsync();
+
+
     }
 }

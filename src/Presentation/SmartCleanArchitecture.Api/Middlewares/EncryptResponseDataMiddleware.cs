@@ -5,6 +5,9 @@ using System.Text;
 using System.Diagnostics;
 using SmartCleanArchitecture.Application.Models;
 using SmartCleanArchitecture.Application.Common.Utils;
+using Newtonsoft.Json.Linq;
+using SmartCleanArchitecture.Application.Common.Interfaces;
+using SmartCleanArchitecture.Application.Common.MessageProviders;
 
 
 namespace SmartCleanArchitecture.Api.Middlewares
@@ -14,12 +17,16 @@ namespace SmartCleanArchitecture.Api.Middlewares
         private readonly RequestDelegate _next;
         private readonly SystemSetting _settings;
         private readonly ILogger _logger;
+        private readonly IMessageProvider _messageProvider;
 
-        public EncryptResponseDataMiddleware(RequestDelegate next, IOptions<SystemSetting> settings, ILogger<EncryptResponseDataMiddleware> logger)
+
+        public EncryptResponseDataMiddleware(RequestDelegate next, IOptions<SystemSetting> settings, ILogger<EncryptResponseDataMiddleware> logger, IMessageProvider messageProvider)
         {
             _next = next;
             _logger = logger;
             _settings = settings.Value;
+            _messageProvider = messageProvider;
+
         }
 
         public async Task Invoke(HttpContext context)
@@ -47,6 +54,17 @@ namespace SmartCleanArchitecture.Api.Middlewares
 
                     var responseBodyText = await new StreamReader(memoryStream).ReadToEndAsync();
                     var currPos = memoryStream.Position;
+
+                    // here we are tracking system error so that we can interpret the message to selectd language
+                    var data = (JObject)JsonConvert.DeserializeObject(responseBodyText);
+                    String code = data["response"].Value<string>("code");
+
+                    if (code == "E1000")
+                    {
+                        var msg = _messageProvider.GetMessage(code);
+                        data["response"]["description"] = msg;
+                        responseBodyText = data.ToString();
+                    }
 
                     var encryptedData = GeneralUtil.Encryptor(responseBodyText, _settings.EncryptionKey);
                     var jsonData = JsonConvert.SerializeObject(new { responseData = encryptedData });

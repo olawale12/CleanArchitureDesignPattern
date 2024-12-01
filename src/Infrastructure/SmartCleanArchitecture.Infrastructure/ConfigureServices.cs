@@ -1,13 +1,9 @@
 ﻿using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using SmartCleanArchitecture.Domain.Interfaces.IFactory;
 using SmartCleanArchitecture.Domain.Interfaces.IWrapper;
 using SmartCleanArchitecture.Infrastructure.Data;
 using SmartCleanArchitecture.Infrastructure.Wrapper;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace SmartCleanArchitecture.Infrastructure
 {
@@ -22,7 +18,11 @@ namespace SmartCleanArchitecture.Infrastructure
               //  opt.UseNpgsql(conStr ?? throw new InvalidOperationException("SSO Db connection not found"))
             );
 
-            services.AddTransient<IRepositoryWrapper, RepositoryWrapper>();
+            string connectionString = configuration.GetConnectionString("OracleDb");
+            services.AddSingleton<IDbConnectionFactory>(new DbConnectionFactory(connectionString));
+            services.AddScoped<IDapperRepositoryWrapper, DapperRepositoryWrapper>();
+
+             services.AddTransient<IRepositoryWrapper, RepositoryWrapper>();
             return services;
         }
     }

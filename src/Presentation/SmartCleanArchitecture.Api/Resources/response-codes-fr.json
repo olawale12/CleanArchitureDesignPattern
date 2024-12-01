@@ -6,5 +6,7 @@
   "E005": "Les détails de l'utilisateur ne peuvent pas être trouvés.",
   "S00": "Action effectuée avec succès",
   "D01": "Les données que vous souhaitez créer existent déjà dans le système",
-  "E0089": "Jeton invalide ou jeton expiré"
+  "E0089": "Jeton invalide ou jeton expiré",
+  "E10": "Code de langue invalide",
+  "E1000": "Impossible de terminer votre processus"
 }

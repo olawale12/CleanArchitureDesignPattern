@@ -11,6 +11,7 @@ namespace SmartCleanArchitecture.Api.Controllers
     public class UsersController : ApiControllerBase
     {
         [HttpPost, Route("OnboardSS0User")]
+        [ServiceFilter(typeof(LanguageFilter))]
         [TypeFilter(typeof(DecryptRequestDataFilter<CreateUserCommand>))]
         public async Task<IActionResult> CreateSSOUser([FromBody] BaseEncryptedRequestDTO encryptedRequestData, [FromQuery] CreateUserCommand command)
         {

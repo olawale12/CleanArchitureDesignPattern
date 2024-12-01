@@ -1,27 +1,23 @@
 ﻿using Microsoft.Extensions.Options;
 using SmartCleanArchitecture.Application.Common.Enums;
 using SmartCleanArchitecture.Application.Common.Interfaces;
-using System;
-using System.Collections.Generic;
-using System.IO;
-using System.Linq;
-using System.Text;
-using System.Text.Json;
-using System.Threading.Tasks;
+
 
 namespace SmartCleanArchitecture.Application.Common.MessageProviders
 {
     public class MessageFullProvider : IMessageFullProvider
     {
         private readonly MessageFullSettings _settings;
-        private const string FILE_EXTENSION = ".json";
-        private readonly IDictionary<string, MessageFull> _fullsEn;
-        private readonly IDictionary<string, MessageFull> _fullsFr;
-        public MessageFullProvider(IOptions<MessageFullSettings> settingsProvider)
+        private readonly IDictionary<string, MessageFull> _fulls;
+        private readonly ILanguageService _languageService;
+
+
+
+        public MessageFullProvider(IOptions<MessageFullSettings> settingsProvider, ILanguageService languageService)
         {
             _settings = settingsProvider.Value;
-            _fullsEn = new Dictionary<string, MessageFull>();
-            _fullsFr = new Dictionary<string, MessageFull>();
+            _fulls = new Dictionary<string, MessageFull>();
+            _languageService = languageService;
             CreateLanguagePacks();
         }
 
@@ -31,26 +27,29 @@ namespace SmartCleanArchitecture.Application.Common.MessageProviders
 
             try
             {
-                var full = new MessageFull(_settings.DefaultMessage);
-                var fullfr = new MessageFull(_settings.DefaultMessage);
-                var location = $"{_settings.BaseLocation}{Path.DirectorySeparatorChar}response-codes{FILE_EXTENSION}";
-                var locationFr = $"{_settings.BaseLocation}{Path.DirectorySeparatorChar}response-codes-fr{FILE_EXTENSION}";
-                var path = Path.Combine(Directory.GetCurrentDirectory(), location);
-                var pathfr = Path.Combine(Directory.GetCurrentDirectory(), locationFr);
-                if (!File.Exists(path))
-                {
-                    // _logger.LogWarning("No bundle file found");
-                    return;
-                }
-                var reader = File.OpenText(path);
 
-                full.Mappings = (Dictionary<string, string>)serializer.Deserialize(reader, typeof(Dictionary<string, string>));
-                StreamReader? readerfr;
-                if (File.Exists(path))
+                string resourceFolderPath = $"{_settings.BaseLocation}";
+                string[] filesLocation = Directory.GetFiles(resourceFolderPath);
+
+                List<string> paths = new List<string>();
+                foreach (var file in filesLocation)
                 {
-                    readerfr = File.OpenText(path);
-                    fullfr.Mappings = (Dictionary<string, string>)serializer.Deserialize(readerfr, typeof(Dictionary<string, string>));
+                    paths.Add(Path.Combine(Directory.GetCurrentDirectory(), file));
                 }
+
+                var mappings = new List<IDictionary<string, string>>();
+                foreach (var path in paths)
+                {
+                    if (File.Exists(path))
+                    {
+                        var reader = File.OpenText(path);
+                        var mapping = (Dictionary<string, string>)serializer.Deserialize(reader, typeof(Dictionary<string, string>));
+
+                        mappings.Add(mapping);
+
+                    }
+                }
+
 
                 var messages = new Dictionary<OtpPurpose, string>();
 
@@ -67,28 +66,43 @@ namespace SmartCleanArchitecture.Application.Common.MessageProviders
                     messages[OtpPurpose.TWO_FACTOR_AUTHENTICATION] = _settings.TwoFactorAuthentication;
                 }
 
-                full.NotificationMessages = messages;
-                fullfr.NotificationMessages = messages;
-                _fullsEn.Add("default", full);
-                _fullsFr.Add("default", fullfr);
+                // full.NotificationMessages = messages;
+                // fullfr.NotificationMessages = messages;
+
+                for (var i = 0; i < paths.Count; i++)
+                {
+                    var full = new MessageFull(_settings.DefaultMessage);
+                    string lang = GetLastWordBeforeJson(paths[i]);
+                    full.Mappings = mappings[i];
+                    _fulls.Add(lang, full);
+
+                }
+
+
             }
             catch (Exception e)
             {
-                //  _logger.LogError(e, "Failed to load language pack");
-                //Console.WriteLine(e.Message);
+                
             }
         }
-        public MessageFull GetPack(string languageCode = "en")
+        public MessageFull GetPack()
         {
-            if (languageCode == "en")
-            {
-                return (_fullsEn.TryGetValue("default", out var pack)) ? pack : null;
-            }
-            else
-            {
-                return (_fullsFr.TryGetValue("default", out var pack)) ? pack : null;
-            }
+            var languageCode = GetLanguageCode();
+            return (_fulls.TryGetValue(languageCode, out var pack)) ? pack : null;
+           
+        }
 
+        private string GetLanguageCode()
+        {
+            return _languageService.GetLanguageCode();
+        }
+
+        static string GetLastWordBeforeJson(string fileName)
+        {
+            string nameWithoutExtension = Path.GetFileNameWithoutExtension(fileName);
+
+            string[] parts = nameWithoutExtension.Split('-');
+            return parts[^1];
         }
     }
 }

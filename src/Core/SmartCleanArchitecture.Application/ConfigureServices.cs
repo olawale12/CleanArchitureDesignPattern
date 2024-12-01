@@ -17,6 +17,7 @@ using SmartCleanArchitecture.Application.kafkaConsumer;
 using SmartCleanArchitecture.Application.Models;
 using SmartCleanArchitecture.Application.Interfaces;
 using SmartCleanArchitecture.Application.Handler;
+using Microsoft.AspNetCore.Mvc.Infrastructure;
 
 namespace SmartCleanArchitecture.Application
 {
@@ -24,6 +25,7 @@ namespace SmartCleanArchitecture.Application
     {
         public static IServiceCollection ApplicationServices(this IServiceCollection services, IConfiguration configuration)
         {
+            services.AddHttpContextAccessor();
             services.AddAutoMapper(Assembly.GetExecutingAssembly());
             services.AddMediatR(ctg =>
             {
@@ -31,7 +33,9 @@ namespace SmartCleanArchitecture.Application
             });
 
             services.AddScoped<IGetUserByCondition, GetUserByCondition>();
-            services.AddScoped<IMessageProvider, MessageProvider>();
+            services.AddSingleton<ILanguageService, LanguageService>();
+            services.AddSingleton<IMessageProvider, MessageProvider>();
+            services.AddSingleton<IActionContextAccessor, ActionContextAccessor>();
             services.AddSingleton<IMessageFullProvider, MessageFullProvider>();
             services.Configure<MessageFullSettings>(opt => configuration.GetSection("MessageFullSettings").Bind(opt));
             services.Configure<SystemSetting>(opt => configuration.GetSection("SystemSettings").Bind(opt));
