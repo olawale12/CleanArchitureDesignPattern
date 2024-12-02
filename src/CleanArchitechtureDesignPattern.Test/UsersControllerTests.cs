@@ -4,9 +4,10 @@ using Moq;
 using SmartCleanArchitecture.Api.Controllers;
 using SmartCleanArchitecture.Application.Commands;
 using SmartCleanArchitecture.Application.Common.Responses;
+using SmartCleanArchitecture.Application.DTOs;
 using SmartCleanArchitecture.Domain.Entities.Dtos;
 
-namespace CleanArchitechtureDesignPattern.Test
+namespace SmartCleanArchitecture.Test
 {
     public class UsersControllerTests
     {
@@ -26,6 +27,8 @@ namespace CleanArchitechtureDesignPattern.Test
                 Password = "SecurePassword",
                 Email = "testuser@example.com"
             };
+
+            var createUserCommandEncrypted = new BaseEncryptedRequestDTO { EncryptedData = "5mzeAieqD+CkU0Pi0lRboFH7APWYV2xXBDQJX1NHGK5Z1BXw4AyHU8KG9EwxrlQ+IesnsC0UHzAGRWMwE1Pm/t93Bp3uSkzIy5gGOUnI5ViinfmiZMXrpbuMeuszeYppLpliNIB+DNKU6Ho7uGDs4vkWngUnrcxxzdqKIc6f2yRBxoCSKB4RzWYTzP7m+n8sLV7PnCLis5mrkcynLUzRKd8f1/o3VhMJlb5qkA5D7xE="};
 
             var expectedPayload = new UsersDto
             {
@@ -55,7 +58,7 @@ namespace CleanArchitechtureDesignPattern.Test
             }
 
             // Act
-            var result = await controller.CreateSSOUser(createUserCommand);
+            var result = await controller.CreateSSOUser(createUserCommandEncrypted, createUserCommand);
 
             // Assert
             var okResult = Assert.IsType<OkObjectResult>(result);

@@ -21,7 +21,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SmartCleanArchitecture.Pers
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SmartCleanArchitecture.Api", "Presentation\SmartCleanArchitecture.Api\SmartCleanArchitecture.Api.csproj", "{D821F3B1-E57A-4F42-B302-0F8EC6BAC101}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CleanArchitechtureDesignPattern.Test", "CleanArchitechtureDesignPattern.Test\CleanArchitechtureDesignPattern.Test.csproj", "{7BA277E5-335C-4CE0-9E6A-2002204AEEF8}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SmartCleanArchitecture.Test", "CleanArchitechtureDesignPattern.Test\SmartCleanArchitecture.Test.csproj", "{7BA277E5-335C-4CE0-9E6A-2002204AEEF8}"
 EndProject
 Project("{00D1A9C2-B5F0-4AF3-8072-F6C62B433612}") = "SmartCleanArchitecture.Database.Infrastructure", "SmartCleanArchitecture.Database.Infrastructure\SmartCleanArchitecture.Database.Infrastructure.sqlproj", "{2B6C4811-7527-45BF-9AA0-F510A345AC96}"
 EndProject
