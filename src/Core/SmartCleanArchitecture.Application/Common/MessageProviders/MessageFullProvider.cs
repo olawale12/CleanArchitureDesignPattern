@@ -31,7 +31,6 @@ namespace SmartCleanArchitecture.Application.Common.MessageProviders
 
                 string resourceFolderPath = $"{_settings.BaseLocation}";
                 string[] filesLocation = Directory.GetFiles(resourceFolderPath);
-                //var mysetting = _configuration["MY_SETTING"];
                 List<string> paths = new List<string>();
                 foreach (var file in filesLocation)
                 {
