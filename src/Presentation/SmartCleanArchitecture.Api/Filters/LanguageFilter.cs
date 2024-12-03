@@ -50,7 +50,6 @@ namespace SmartCleanArchitecture.Api.Filters
             {
 
                 _languageService.SetLanguageCode(languageCode.ToLower());
-                // context.ActionArguments["languageCode"] = languageCode;
                 await next();
 
 

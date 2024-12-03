@@ -27,7 +27,6 @@ namespace SmartCleanArchitecture.Api.Filters
         {
             Log.Error(context.Exception, "[Error]");
             var message = "Unable to complete your transaction";
-            // _messageProvider.GetMessage(ResponseCodes.SYSTEM_ERROR)
             return ResponseStatus<string>.Create<PayloadResponse<string>>(ResponseCodes.SYSTEM_ERROR, message, null);
         }
 

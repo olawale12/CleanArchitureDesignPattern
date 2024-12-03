@@ -3,12 +3,7 @@ using Microsoft.Extensions.DependencyInjection;
 using SmartCleanArchitecture.Application.Common.Interfaces;
 using SmartCleanArchitecture.Application.Common.MessageProviders;
 using SmartCleanArchitecture.Application.Common.Utils;
-using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Reflection;
-using System.Text;
-using System.Threading.Tasks;
 using Cachelibrary;
 using StackExchange.Redis;
 using KafkaLibrary;
@@ -18,6 +13,7 @@ using SmartCleanArchitecture.Application.Models;
 using SmartCleanArchitecture.Application.Interfaces;
 using SmartCleanArchitecture.Application.Handler;
 using Microsoft.AspNetCore.Mvc.Infrastructure;
+using SmartCleanArchitecture.Application.Common.HttpClientRequest;
 
 namespace SmartCleanArchitecture.Application
 {
@@ -31,16 +27,15 @@ namespace SmartCleanArchitecture.Application
             {
                 ctg.RegisterServicesFromAssembly(Assembly.GetExecutingAssembly());
             });
-
+            
             services.AddScoped<IGetUserByCondition, GetUserByCondition>();
             services.AddSingleton<ILanguageService, LanguageService>();
             services.AddSingleton<IMessageProvider, MessageProvider>();
             services.AddSingleton<IActionContextAccessor, ActionContextAccessor>();
             services.AddSingleton<IMessageFullProvider, MessageFullProvider>();
+            services.AddSingleton<IClientRequest, ClientRequest>();
             services.Configure<MessageFullSettings>(opt => configuration.GetSection("MessageFullSettings").Bind(opt));
             services.Configure<SystemSetting>(opt => configuration.GetSection("SystemSettings").Bind(opt));
-
-
 
             #region RedisSetup
 

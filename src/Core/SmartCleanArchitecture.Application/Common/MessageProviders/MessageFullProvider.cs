@@ -1,4 +1,5 @@
-﻿using Microsoft.Extensions.Options;
+﻿using Microsoft.Extensions.Configuration;
+using Microsoft.Extensions.Options;
 using SmartCleanArchitecture.Application.Common.Enums;
 using SmartCleanArchitecture.Application.Common.Interfaces;
 
@@ -30,7 +31,7 @@ namespace SmartCleanArchitecture.Application.Common.MessageProviders
 
                 string resourceFolderPath = $"{_settings.BaseLocation}";
                 string[] filesLocation = Directory.GetFiles(resourceFolderPath);
-
+                //var mysetting = _configuration["MY_SETTING"];
                 List<string> paths = new List<string>();
                 foreach (var file in filesLocation)
                 {

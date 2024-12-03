@@ -7,6 +7,7 @@ using SmartCleanArchitecture.Application.Common.Interfaces;
 using SmartCleanArchitecture.Infrastructure;
 
 var builder = WebApplication.CreateBuilder(args);
+builder.Configuration.AddEnvironmentVariables();
 builder.Services.Configure<ApiBehaviorOptions>(options =>
 {
     options.SuppressModelStateInvalidFilter = true;
@@ -74,10 +75,7 @@ if (app.Environment.IsDevelopment())
     app.UseSwagger();
     app.UseSwaggerUI();
 }
-using (var scope = app.Services.CreateScope())
-{
-    var services = scope.ServiceProvider.GetService<IMessageProvider>();
-}
+
 app.UseMiddleware<EncryptResponseDataMiddleware>();
 
 app.UseAuthorization();
