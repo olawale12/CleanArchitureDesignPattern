@@ -26,15 +26,13 @@ namespace SmartCleanArchitecture.Api.Filters
             string languageCode;
             if (!context.HttpContext.Request.Headers.TryGetValue(HEADER_KEY, out var headers))
             {
-                context.Result = new ObjectResult(ResponseStatus<string>.Create<PayloadResponse<string>>(ResponseCodes.INVALID_LANGUAGE_CODE, _messageProvider.GetMessage(ResponseCodes.INVALID_LANGUAGE_CODE), null))
-                {
-                    StatusCode = (int)HttpStatusCode.BadRequest
-                };
-                return;
+                languageCode = "en";
 
             }
-
-            languageCode = headers.FirstOrDefault();
+            else
+            {
+                languageCode = headers.FirstOrDefault();
+            }
 
 
             if (string.IsNullOrEmpty(languageCode))
