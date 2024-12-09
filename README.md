@@ -210,7 +210,6 @@ in `appsettings.json` put your configuration
  }
 
 ```
-TBD
 
 **Consumer Usage**
 
