@@ -13,7 +13,7 @@ This template is perfect for developers seeking a solid foundation for their ASP
 
 ## Package Installation
 
-You can install this template using [NuGet](https://www.nuget.org/packages/AspNetCoreTemplate):
+You can install this template using [NuGet](https://www.nuget.org/packages/SmartCleanArchitecture):
 
 ```powershell
 dotnet new -i SmartCleanArchitecture
