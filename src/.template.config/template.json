@@ -12,6 +12,12 @@
   "sourceName": "SmartCleanArchitecture",
   "defaultName":"SmartCleanArchitecture",
   "symbols": {
+	"projectName": {
+      "type": "parameter",
+      "dataType": "string",
+      "defaultValue": "SmartCleanArchitecture",
+      "description": "The name of the project"
+    },
     "skipRestore": {
       "type": "parameter",
       "datatype": "bool",
@@ -21,6 +27,8 @@
   },
   "sources": [
     {
+	  "source": "./",
+      "target": "./SmartCleanArchitecture",
       "modifiers": [
         {
           "exclude": [ "src/.vs/**", ".template_config/**" ]

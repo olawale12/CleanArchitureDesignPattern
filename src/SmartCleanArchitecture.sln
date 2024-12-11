@@ -21,7 +21,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SmartCleanArchitecture.Pers
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SmartCleanArchitecture.Api", "Presentation\SmartCleanArchitecture.Api\SmartCleanArchitecture.Api.csproj", "{D821F3B1-E57A-4F42-B302-0F8EC6BAC101}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SmartCleanArchitecture.Test", "CleanArchitechtureDesignPattern.Test\SmartCleanArchitecture.Test.csproj", "{03FBBC45-0CC1-4E99-9610-71951FBA7BA9}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SmartCleanArchitecture.Test", "Test\SmartCleanArchitecture.Test.csproj", "{03FBBC45-0CC1-4E99-9610-71951FBA7BA9}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

@@ -33,8 +33,11 @@
 
   <ItemGroup>
     <Reference Include="Cachelibrary">
-      <HintPath>..\..\..\Cachelibrary.dll</HintPath>
+      <HintPath>..\..\lib\Cachelibrary.dll</HintPath>
     </Reference>
+	 <None Update="..\..\lib\Cachelibrary.dll">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
   </ItemGroup>
 
 </Project>
