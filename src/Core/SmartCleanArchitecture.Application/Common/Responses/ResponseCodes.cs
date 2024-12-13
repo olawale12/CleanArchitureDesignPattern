@@ -19,6 +19,7 @@ namespace SmartCleanArchitecture.Application.Common.Responses
         public const string INVALID_INPUT_PARAMETER = "E0032";
         public const string SYSTEM_ERROR = "E1000";
         public const string INVALID_LANGUAGE_CODE = "E10";
+        public const string INVALID_COUNTRY_CODE = "E11";
 
 
 

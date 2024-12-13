@@ -8,5 +8,6 @@
   "D01": "Les données que vous souhaitez créer existent déjà dans le système",
   "E0089": "Jeton invalide ou jeton expiré",
   "E10": "Code de langue invalide",
+  "E11": "Code de pays invalide",
   "E1000": "Impossible de terminer votre processus"
 }

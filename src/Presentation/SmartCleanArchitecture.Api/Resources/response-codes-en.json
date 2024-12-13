@@ -8,6 +8,7 @@
   "D01": "The data you want to create already exist on the system",
   "E0089": "Invalid Token or Token as expire",
   "E10": "Invalid language code",
+  "E11": "Invalid country code",
   "E1000": "Unable to complete your process"
 
 }

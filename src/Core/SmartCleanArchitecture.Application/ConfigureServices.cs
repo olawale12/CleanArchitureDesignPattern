@@ -14,6 +14,8 @@ using SmartCleanArchitecture.Application.Interfaces;
 using SmartCleanArchitecture.Application.Handler;
 using Microsoft.AspNetCore.Mvc.Infrastructure;
 using SmartCleanArchitecture.Application.Common.HttpClientRequest;
+using SmartCleanArchitecture.Application.Factories.Implementations;
+using SmartCleanArchitecture.Application.Factories.Interfaces;
 
 namespace SmartCleanArchitecture.Application
 {
@@ -30,12 +32,18 @@ namespace SmartCleanArchitecture.Application
             
             services.AddScoped<IGetUserByCondition, GetUserByCondition>();
             services.AddSingleton<ILanguageService, LanguageService>();
+            services.AddScoped<ICountryService, CountryService>();
             services.AddSingleton<IMessageProvider, MessageProvider>();
             services.AddSingleton<IActionContextAccessor, ActionContextAccessor>();
             services.AddSingleton<IMessageFullProvider, MessageFullProvider>();
             services.AddSingleton<IClientRequest, ClientRequest>();
             services.Configure<MessageFullSettings>(opt => configuration.GetSection("MessageFullSettings").Bind(opt));
             services.Configure<SystemSetting>(opt => configuration.GetSection("SystemSettings").Bind(opt));
+
+            services.AddTransient<NigeriaUserStrategyFactory>();
+
+            services.AddTransient<IUserStrategyFactory, UserStrategyFactory>();
+
 
             #region RedisSetup
 

@@ -15,6 +15,7 @@ builder.Services.Configure<ApiBehaviorOptions>(options =>
 
 // Add services to the container.
 builder.Services.AddScoped<LanguageFilter>();
+builder.Services.AddScoped<CountryFilter>();
 // add layer dependency
 builder.Services.AddScoped(typeof(DecryptRequestDataFilter<>));
 object value = builder.Services.ApplicationServices(builder.Configuration);
@@ -48,6 +49,15 @@ builder.Services.AddSwaggerGen(s =>
         Scheme = "LanguageCode"
     });
 
+    s.AddSecurityDefinition("CountryCode", new OpenApiSecurityScheme()
+    {
+        In = ParameterLocation.Header,
+        Description = "Country Code format : 01 for Nigeria",
+        Name = "CountryCode",
+        Type = SecuritySchemeType.ApiKey,
+        Scheme = "CountryCode"
+    });
+
     s.AddSecurityRequirement(new OpenApiSecurityRequirement() {
             {
                 new OpenApiSecurityScheme
@@ -63,7 +73,24 @@ builder.Services.AddSwaggerGen(s =>
                 },
                 new List<string>()
             }
-        });
+    });
+
+    s.AddSecurityRequirement(new OpenApiSecurityRequirement() {
+            {
+                new OpenApiSecurityScheme
+                {
+                    Reference = new OpenApiReference
+                    {
+                        Type = ReferenceType.SecurityScheme,
+                        Id = "CountryCode"
+                    },
+                    Scheme = "CountryCode",
+                    Name = "CountryCode",
+                    In = ParameterLocation.Header
+                },
+                new List<string>()
+            }
+    });
 
 });
 
